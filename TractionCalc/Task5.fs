@@ -1,7 +1,7 @@
 ﻿namespace TractionCalc
 
-    open TractionCalc.Consts
     open TractionCalc.MeasurementUnit
+    open TractionCalc.Consts
     open TractionCalc.Carriage
     open TractionCalc.Stock
     open TractionCalc.Locomotive
@@ -11,12 +11,10 @@
 
     open System.Collections.Generic;
 
-    
+
     module Task5 =
-        
-        /// <summary>
-        /// Построение диаграммы удельных равнодествующих сил
-        /// </summary>
+
+        /// <summary>Построение диаграммы удельных равнодествующих сил</summary>
         type Task5 = class
             val _name : string
             val _train : Train

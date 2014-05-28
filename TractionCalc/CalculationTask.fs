@@ -1,7 +1,7 @@
 ﻿namespace TractionCalc
 
-    open TractionCalc.Consts
     open TractionCalc.MeasurementUnit
+    open TractionCalc.Consts
     open TractionCalc.Train
     open TractionCalc.Track
 
@@ -12,7 +12,7 @@
             val _name : string
             [<DefaultValue>] val mutable _train : Train
             [<DefaultValue>] val mutable _track : Track
-            
+
             new (name) =
                 {
                     _name = name

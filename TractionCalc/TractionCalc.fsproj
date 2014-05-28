@@ -33,6 +33,10 @@
     <DocumentationFile>bin\Release\TractionCalc.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FSharp.Charting">
+      <HintPath>..\packages\FSharp.Charting.0.90.6\lib\net40\FSharp.Charting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
@@ -42,8 +46,8 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Consts.fs" />
     <Compile Include="MeasurementUnit.fs" />
+    <Compile Include="Consts.fs" />
     <Compile Include="Carriage.fs" />
     <Compile Include="Stock.fs" />
     <Compile Include="Locomotive.fs" />
@@ -56,13 +60,17 @@
     <Compile Include="Task4.fs" />
     <Compile Include="Task5.fs" />
     <Compile Include="CalculationTask.fs" />
-    <Compile Include="DSLDeclaration.fs" />
+    <None Include="DSLDeclaration.fsx" />
+    <None Include="DSLLocalRU.fsx" />
     <None Include="MainScript.fsx" />
+    <None Include="MainScriptRU.fsx" />
     <None Include="Task1Test.fsx" />
     <None Include="Task2Test.fsx" />
     <None Include="Task3Test.fsx" />
     <None Include="Task4Test.fsx" />
     <None Include="Task5Test.fsx" />
+    <None Include="packages.config" />
+    <None Include="app.config" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

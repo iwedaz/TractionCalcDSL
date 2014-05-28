@@ -1,93 +1,92 @@
 ﻿namespace TractionCalc
 
+    open TractionCalc.MeasurementUnit
+
     module Consts =
-        
-        /// <summary>
-        /// Тип рельсовых путей:
-        /// <para>LongWeldedRail - бесстыковой</para>
-        /// <para>SectionRail    - звеньевой</para>
-        /// <para>SectionRail160 - звеньевой до 160 км/ч</para>
-        /// </summary>
+
+
+        /// <summary>Тип рельсовых путей:</summary>
         type RailType =
-            | LongWeldedRail        //бесстыковой
-            | SectionRail           //звеньевой
-            //| SectionRail160        //звеньевой до 160 км/ч
+            /// <summary>Бесстыковой путь</summary>
+            | LongWeldedRail
+            /// <summary>Звеньевой путь</summary>
+            | SectionRail
 
 
-        /// <summary>
-        /// Тип вагона
-        /// <para>OpenCarriage    - полувагон</para>
-        /// <para>СoveredCarriage - крытый</para>
-        /// <para>FlatCarriage    - платформа</para>
-        /// <para>TankCarriage    - цистерна</para>
-        /// </summary>
+
+        /// <summary>Тип вагона</summary>
         type CarriageType =
-            | PassengerCarriage     // пассажирский
-            | RefrigeratorCarriage  // рефрижераторный
-            | OpenCarriage          // полувагон
-            | СoveredCarriage       // крытый
-            | FlatCarriage          // платформа
-            | TankCarriage          // цистерна
+            /// <summary>Пассажирский</summary>
+            | PassengerCarriage
+            /// <summary>Рефрижераторный</summary>
+            | RefrigeratorCarriage
+            /// <summary>Полувагон</summary>
+            | OpenCarriage
+            /// <summary>Крытый</summary>
+            | СoveredCarriage
+            /// <summary>Платформа</summary>
+            | FlatCarriage
+            /// <summary>Цистерна</summary>
+            | TankCarriage
 
 
-        /// <summary>
-        /// Тип буксовых подшипников
-        /// <para>RollerBearing - подшипник качения (роликовый)</para>
-        /// <para>SliderBearing - подшипник скольжения</para>
-        /// </summary>
+
+        /// <summary>Тип буксовых подшипников</summary>
         type BearingType =
-            | RollerBearing         // подшипник качения (роликовый)
-            | SliderBearing         // подшипник скольжения
+            /// <summary>Подшипник качения (роликовый)</summary>
+            | RollerBearing
+            /// <summary>Подшипник скольжения</summary>
+            | SliderBearing
 
 
-        /// <summary>
-        /// Тип тормозных колодок
-        /// <para>CastIronBrakeShoe  - чугунная колодка</para>
-        /// <para>CompositeBrakeShoe - композитная колодка</para>
-        /// </summary>
+
+        /// <summary>Тип тормозных колодок</summary>
         type BrakeShoeType =
-            | CastIronBrakeShoe     // чугунная колодка
-            | CompositeBrakeShoe    // композитная колодка
+            /// <summary>Чугунная колодка</summary>
+            | CastIronBrakeShoe
+            /// <summary>Композитная колодка</summary>
+            | CompositeBrakeShoe
 
 
-        /// <summary>
-        /// Тип тяги локомотива
-        /// </summary>
+
+        /// <summary>Тип тяги локомотива</summary>
         type LocomotivePowerType =
-            | DieselPower
-            | ElectricPower
-            | DieselElectricPower
+            /// <summary>Дизельный</summary>
+            | DieselLocomotive
+            /// <summary>Электрический</summary>
+            | ElectricLocomotive
+            /// <summary>Дизель-электрический</summary>
+            | DieselElectricLocomotive
 
 
 
-        let TokenConst = -11
-        let TokenConstTrackSection = -12
-        let TokenConstCarriage = -13
-        let TokenConstLocomotive = -14
+        /// <summary>Позиция контроллера машиниста</summary>
+        type LocomotiveThrottlePositionType =
+            /// <summary>Не задействована</summary>
+            | None
+            /// <summary>Последовательное возбуждение</summary>
+            | S
+            /// <summary>Последовательно-параллельное возбуждение</summary>
+            | SP
+            /// <summary>Параллельное возбуждение</summary>
+            | PP
+            /// <summary>Режим ослабления магнитного поля 1</summary>
+            | OP1
+            /// <summary>Режим ослабления магнитного поля 2</summary>
+            | OP2
 
-        type AndAType = class new () = {} end
-        let andA = AndAType()
 
-        type WithAType = class new () = {} end
-        let withA = WithAType()
-            
-        type ForAType = class new () = {} end
-        let forA = ForAType()
+        /// <summary>Кортеж (tuple), описывающий одну запись тяговой характеристики локомотива</summary>
+        type LocomotiveThrottlePositionRecordType = class
+            val _speed : float<km/hour>
+            val _throttlePosition : LocomotiveThrottlePositionType 
+            val _tractiveEffort : float<N>
 
-        type FromAType = class new () = {} end
-        let fromA = FromAType()
-
-        type OnAType = class new () = {} end
-        let onA = OnAType()
-
-        type BuildAsType = class new () = {} end
-        let builtAs = BuildAsType()
-
-        type IncludedType = class new () = {} end
-        let included = IncludedType()
-
-        type BasedOnType = class new () = {} end
-        let basedOn = BasedOnType()
-
-        type TypeAType = class new () = {} end
-        let typeA = TypeAType()
+            new (speed , throttlePosition , tractiveEffort) =
+                {
+                    _speed = speed
+                    _throttlePosition = throttlePosition
+                    _tractiveEffort = tractiveEffort
+                }
+        end
+        

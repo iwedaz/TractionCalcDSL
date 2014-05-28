@@ -1,7 +1,7 @@
 ﻿namespace TractionCalc
 
-    open TractionCalc.Consts
     open TractionCalc.MeasurementUnit
+    open TractionCalc.Consts
     open TractionCalc.Carriage
     open TractionCalc.Stock
     open TractionCalc.Locomotive
@@ -11,9 +11,9 @@
 
     open System.Collections.Generic;
 
-    
+
     module Task4 =
-        
+
         /// <summary>
         /// Расчёт длины состава по длинне приёмо-отправочных путей
         /// <para></para>

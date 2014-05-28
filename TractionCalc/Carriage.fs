@@ -1,25 +1,38 @@
 ﻿namespace TractionCalc
 
-    open TractionCalc.Consts
     open TractionCalc.MeasurementUnit
+    open TractionCalc.Consts
     open System
 
     // вагон
     module Carriage =
-        
-        /// <summary>
-        /// Вагон
-        /// </summary>
+
+        /// <summary>Вагон</summary>
         type Carriage = class
-                    
+
+            /// <summary>Наименование</summary>
             val _name : string
-            val _carriageType : CarriageType    // тип вагона
-            val _length : float<m>              // длина
-            val _mass : float<t>                // масса
-            val _axelNumber : int               // количество осей
-            val _bearingType : BearingType      // тип буксовых подшипников
-            val _brakeShoeType : BrakeShoeType  // тип тормозных колодок
-            val _brakingAxels : int             // тормозных осей
+
+            /// <summary>Тип вагона</summary>
+            val _carriageType : CarriageType
+            
+            /// <summary>Длина</summary>
+            val _length : float<m>
+
+            /// <summary>Масса</summary>
+            val _mass : float<t>
+
+            /// <summary>Количество осей</summary>
+            val _axelNumber : int
+
+            /// <summary>Тип буксовых подшипников</summary>
+            val _bearingType : BearingType
+
+            /// <summary>Тип тормозных колодок</summary>
+            val _brakeShoeType : BrakeShoeType
+
+            /// <summary>Количество тормозных осей</summary>
+            val _brakingAxels : int
 
 
             interface IComparable<Carriage> with
@@ -50,18 +63,18 @@
                     then 0
                     else this._name.CompareTo(obj._name)
 
-            
+
             /// <summary>
             /// Конструктор
             /// </summary>
             /// <param name="name">Имя вагона</param>
-            /// <param name="carriageType"></param>
-            /// <param name="length"></param>
-            /// <param name="mass"></param>
-            /// <param name="axelNumber"></param>
-            /// <param name="bearingType"></param>
-            /// <param name="brakingAxels"></param>
-            /// <param name="brakeShoeType"></param>
+            /// <param name="carriageType">Тип вагона</param>
+            /// <param name="length">Длина вагона</param>
+            /// <param name="mass">Масса вагона</param>
+            /// <param name="axelNumber">Число осей</param>
+            /// <param name="bearingType">Тип буксовых подшипников</param>
+            /// <param name="brakingAxels">Число тормозных осей</param>
+            /// <param name="brakeShoeType">Тип тормозных колодок</param>
             new (name , carriageType , length , mass , axelNumber , bearingType , brakingAxels , brakeShoeType) =
                 {
                     _name = name
@@ -99,19 +112,18 @@
             /// <param name="speed">Скорость, V, м/с</param>
             /// <param name="railType">Тип рельсовых путей</param>
             /// <param name="hasTraction">true - в режиме тяги, false - в режиме холостого хода</param>
-            member this.SpecificRunningResistance (speed : float<m/sec>) (railType : RailType) : float<N/t> =
-                let speedKmPerHour = MetrePerSecToKmPerHour speed
+            member this.SpecificRunningResistance (speed : float<km/hour>) (railType : RailType) : float<N/t> =
                 match this._carriageType with
-                | CarriageType.PassengerCarriage -> 
+                | CarriageType.PassengerCarriage ->
                     match railType with
-                    | RailType.SectionRail    -> 7.0<N/t> + (80.0<N> + 1.8<N*hour/km> * speedKmPerHour + 0.030<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / this.MassPerAxel
-                    | RailType.LongWeldedRail -> 7.0<N/t> + (80.0<N> + 1.6<N*hour/km> * speedKmPerHour + 0.023<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / this.MassPerAxel
+                    | RailType.SectionRail    -> 7.0<N/t> + (80.0<N> + 1.8<N*hour/km> * speed + 0.030<N*hour^2/km^2> * speed * speed) / this.MassPerAxel
+                    | RailType.LongWeldedRail -> 7.0<N/t> + (80.0<N> + 1.6<N*hour/km> * speed + 0.023<N*hour^2/km^2> * speed * speed) / this.MassPerAxel
                     | _ -> 0.0<N/t>
                 | CarriageType.RefrigeratorCarriage ->
                     if this.MassPerAxel > 6.0<t> then
                         match railType with
-                        | RailType.SectionRail    -> 7.0<N/t> + (30.0<N> + 1.0<N*hour/km> * speedKmPerHour + 0.025<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / this.MassPerAxel
-                        | RailType.LongWeldedRail -> 7.0<N/t> + (30.0<N> + 0.9<N*hour/km> * speedKmPerHour + 0.020<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / this.MassPerAxel
+                        | RailType.SectionRail    -> 7.0<N/t> + (30.0<N> + 1.0<N*hour/km> * speed + 0.025<N*hour^2/km^2> * speed * speed) / this.MassPerAxel
+                        | RailType.LongWeldedRail -> 7.0<N/t> + (30.0<N> + 0.9<N*hour/km> * speed + 0.020<N*hour^2/km^2> * speed * speed) / this.MassPerAxel
                         | _ -> 0.0<N/t>
                     else 0.0<N/t>
                 | x when x.GetType().Equals(typeof<CarriageType>) ->
@@ -122,23 +134,23 @@
                             match this._bearingType with
                             | BearingType.RollerBearing ->
                                 if this.MassPerAxel > 6.0<t>
-                                then 7.0<N/t> + (30.0<N> + 1.0<N*hour/km> * speedKmPerHour + 0.025<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / this.MassPerAxel
-                                else (10.0<N> + 0.44<N*hour/km> * speedKmPerHour + 0.0024<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / 1.0<t>
+                                then 7.0<N/t> + (30.0<N> + 1.0<N*hour/km> * speed + 0.025<N*hour^2/km^2> * speed * speed) / this.MassPerAxel
+                                else (10.0<N> + 0.44<N*hour/km> * speed + 0.0024<N*hour^2/km^2> * speed * speed) / 1.0<t>
                             | BearingType.SliderBearing ->
                                 if this.MassPerAxel > 6.0<t>
-                                then 7.0<N/t> + (80.0<N> + 1.0<N*hour/km> * speedKmPerHour + 0.025<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / this.MassPerAxel
-                                else (15.0<N> + 0.45<N*hour/km> * speedKmPerHour + 0.0027<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / 1.0<t>
+                                then 7.0<N/t> + (80.0<N> + 1.0<N*hour/km> * speed + 0.025<N*hour^2/km^2> * speed * speed) / this.MassPerAxel
+                                else (15.0<N> + 0.45<N*hour/km> * speed + 0.0027<N*hour^2/km^2> * speed * speed) / 1.0<t>
                             | _ -> 0.0<N/t>
                         | 6 ->
                             match this._bearingType with
                             | BearingType.RollerBearing ->
                                 if this.MassPerAxel > 6.0<t>
-                                then 7.0<N/t> + (80.0<N> + 1.0<N*hour/km> * speedKmPerHour + 0.025<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / this.MassPerAxel
-                                else (10.0<N> + 0.44<N*hour/km> * speedKmPerHour + 0.0024<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / 1.0<t>
+                                then 7.0<N/t> + (80.0<N> + 1.0<N*hour/km> * speed + 0.025<N*hour^2/km^2> * speed * speed) / this.MassPerAxel
+                                else (10.0<N> + 0.44<N*hour/km> * speed + 0.0024<N*hour^2/km^2> * speed * speed) / 1.0<t>
                             | _ -> 0.0<N/t>
                         | 8 ->
                             match this._bearingType with
-                            | BearingType.RollerBearing -> 7.0<N/t> + (60.0<N> + 0.38<N*hour/km> * speedKmPerHour + 0.021<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / this.MassPerAxel
+                            | BearingType.RollerBearing -> 7.0<N/t> + (60.0<N> + 0.38<N*hour/km> * speed + 0.021<N*hour^2/km^2> * speed * speed) / this.MassPerAxel
                             | BearingType.SliderBearing -> 0.0<N/t>
                             | _ -> 0.0<N/t>
                         | _ -> 0.0<N/t>
@@ -148,29 +160,29 @@
                             match this._bearingType with
                             | BearingType.RollerBearing ->
                                 if this.MassPerAxel > 6.0<t>
-                                then 7.0<N/t> + (30.0<N> + 0.9<N*hour/km> * speedKmPerHour + 0.020<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / this.MassPerAxel
-                                else (10.0<N> + 0.042<N*hour/km> * speedKmPerHour + 0.00016<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / 1.0<t>
+                                then 7.0<N/t> + (30.0<N> + 0.9<N*hour/km> * speed + 0.020<N*hour^2/km^2> * speed * speed) / this.MassPerAxel
+                                else (10.0<N> + 0.042<N*hour/km> * speed + 0.00016<N*hour^2/km^2> * speed * speed) / 1.0<t>
                             | BearingType.SliderBearing ->
                                 if this.MassPerAxel > 6.0<t>
-                                then 7.0<N/t> + (80.0<N> + 0.8<N*hour/km> * speedKmPerHour + 0.020<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / this.MassPerAxel
-                                else (15.0<N> + 0.42<N*hour/km> * speedKmPerHour + 0.0018<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / 1.0<t>
+                                then 7.0<N/t> + (80.0<N> + 0.8<N*hour/km> * speed + 0.020<N*hour^2/km^2> * speed * speed) / this.MassPerAxel
+                                else (15.0<N> + 0.42<N*hour/km> * speed + 0.0018<N*hour^2/km^2> * speed * speed) / 1.0<t>
                             | _ -> 0.0<N/t>
                         | 6 ->
                             match this._bearingType with
                             | BearingType.RollerBearing ->
                                 if this.MassPerAxel > 6.0<t>
-                                then 7.0<N/t> + (80.0<N> + 0.8<N*hour/km> * speedKmPerHour + 0.020<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / this.MassPerAxel
-                                else (10.0<N> + 0.42<N*hour/km> * speedKmPerHour + 0.0016<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / 1.0<t>
+                                then 7.0<N/t> + (80.0<N> + 0.8<N*hour/km> * speed + 0.020<N*hour^2/km^2> * speed * speed) / this.MassPerAxel
+                                else (10.0<N> + 0.42<N*hour/km> * speed + 0.0016<N*hour^2/km^2> * speed * speed) / 1.0<t>
                             | _ -> 0.0<N/t>
                         | 8 ->
                             match this._bearingType with
-                            | BearingType.RollerBearing -> 7.0<N/t> + (60.0<N> + 0.26<N*hour/km> * speedKmPerHour + 0.017<N*hour^2/km^2> * speedKmPerHour * speedKmPerHour) / this.MassPerAxel
+                            | BearingType.RollerBearing -> 7.0<N/t> + (60.0<N> + 0.26<N*hour/km> * speed + 0.017<N*hour^2/km^2> * speed * speed) / this.MassPerAxel
                             | BearingType.SliderBearing -> 0.0<N/t>
                             | _ -> 0.0<N/t>
                         | _ -> 0.0<N/t>
                     | _ -> 0.0<N/t>
                 | _ -> 0.0<N/t>
-               
+
 
             /// <summary>
             /// Сопротивление движению, W", Н
@@ -178,7 +190,7 @@
             /// <param name="speed">Скорость, м/с</param>
             /// <param name="railType">Тип рельсовых путей</param>
             /// <param name="hasTraction">true - в режиме тяги, false - в режиме холостого хода</param>
-            member this.RunningResistance (speed : float<m/sec>) (railType : RailType) (hasTraction : bool) : float<N> =
+            member this.RunningResistance (speed : float<km/hour>) (railType : RailType) (hasTraction : bool) : float<N> =
                 this._mass * this.SpecificRunningResistance speed railType
-            
+
         end
