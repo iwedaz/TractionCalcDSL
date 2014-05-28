@@ -2,17 +2,17 @@
 
 open System.Diagnostics
 
-type public FsiSession(fsiPath: string) =
+type public FsiSession(info : ProcessStartInfo) =
 
-    let info = new ProcessStartInfo()
+    //let info = new ProcessStartInfo()
     let fsiProcess = new Process()
 
     do
-        info.RedirectStandardInput <- true
-        info.RedirectStandardOutput <- true
-        info.UseShellExecute <- false
-        info.CreateNoWindow <- true
-        info.FileName <- fsiPath
+//        info.RedirectStandardInput <- true
+//        info.RedirectStandardOutput <- true
+//        info.UseShellExecute <- false
+//        info.CreateNoWindow <- true
+//        info.FileName <- fsiPath
 
         fsiProcess.StartInfo <- info
 

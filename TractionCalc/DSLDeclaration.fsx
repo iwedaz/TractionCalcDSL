@@ -388,7 +388,11 @@ namespace TractionCalc
 // ################################   SERVICE   ###############################################
 
 
-        let printTrack (valueName : string) =
+        let printTrackSection (sectionName : string) =
+            Chart.Line [ for x in 1.0 .. 100.0 -> (x, x ** 2.0) ]
+
+
+        let printTrack (trackName : string) =
             Chart.Line [ for x in 1.0 .. 100.0 -> (x, x ** 2.0) ]
 
 

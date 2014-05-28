@@ -245,31 +245,28 @@ namespace FSharpGUI
 							list.Sort(lastClassIndex + 1 , list.Count - (lastClassIndex + 1), new ExplorerItemComparer());
 							lastClassIndex = list.Count;
 						}
-						else
-							if(item.title.Contains(" event "))
-							{
-								int ii = item.title.LastIndexOf(' ');
+						else if(item.title.Contains(" event "))
+						{
+							int ii = item.title.LastIndexOf(' ');
 							item.title = item.title.Substring(ii).Trim();
 							item.type = ExplorerItemType.Event;
-							}
-							else
-								if(item.title.Contains("("))
+						}
+						else if(item.title.Contains("("))
 						{
 							var parts = item.title.Split('(');
 							item.title = parts [0].Substring(parts [0].LastIndexOf(' ')).Trim() + "(" + parts [1];
 							item.type = ExplorerItemType.Method;
-								}
-								else
-									if(item.title.EndsWith("]"))
+						}
+						else if(item.title.EndsWith("]"))
 						{
 							var parts = item.title.Split('[');
 							if(parts.Length < 2) 								continue;
 							item.title = parts [0].Substring(parts [0].LastIndexOf(' ')).Trim() + "[" + parts [1];
 							item.type = ExplorerItemType.Method;
-									}
-									else
-									{
-										int ii = item.title.LastIndexOf(' ');
+						}
+						else
+						{
+							int ii = item.title.LastIndexOf(' ');
 							item.title = item.title.Substring(ii).Trim();
 							item.type = ExplorerItemType.Property;
 						}
@@ -931,7 +928,7 @@ namespace FSharpGUI
 
 		private void runScriptButton_Click(object sender , EventArgs e)
 		{
-			var fsi = new FSharpInterctive(tsFiles.SelectedItem.Caption ,
+			var fsi = new FSharpInterctive(tsFiles.SelectedItem.Tag.ToString() ,
 				CurrentTB.Text.Split(new [] { "\n" , "\n\r" } , StringSplitOptions.RemoveEmptyEntries));
 			fsi.FormClosing += Fsi_FormClosing;
 			fsiList.Add(fsi);
@@ -944,6 +941,8 @@ namespace FSharpGUI
 			var f = sender as FSharpInterctive;
 			if(f != null)
 				fsiList.Remove(f);
+
+			e.Cancel = false;
 		}
 
 		
