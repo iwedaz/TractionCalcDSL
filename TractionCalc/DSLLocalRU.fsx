@@ -59,15 +59,15 @@ namespace TractionCalc
         let платформа = FlatCarriage
         let цистерна = TankCarriage
 
-        let подшиникиКачения = RollerBearing
-        let подшипникиСкольжения = SliderBearing
+        let подшиникахКачения = RollerBearing
+        let подшипникахСкольжения = SliderBearing
 
-        let чугуннаяКолодка = CastIronBrakeShoe
-        let композитнаяКолодка = CompositeBrakeShoe
+        let чугунныхКолодках = CastIronBrakeShoe
+        let композитныхКолодках = CompositeBrakeShoe
 
-        let масса = mass
-        let числоОсей = axelNumber
-        let числоТормозныхОсей = brakingAxels
+        let массой = mass
+        let числомОсей = axelNumber
+        let числомТормозныхОсей = brakingAxels
 
 
         // локомотив
@@ -77,10 +77,10 @@ namespace TractionCalc
         let электрическийЛокомотив = ElectricLocomotive
         let дизельЭлектрическийЛокомотив = DieselElectricLocomotive
 
-        let расчетнаяСкорость = ratedSpeed
-        let расчетнаяСилаТяги = ratedTractiveEffort
+        let расчетнойСкоростью = ratedSpeed
+        let расчетнойСилойТяги = ratedTractiveEffort
         let колиствоСекций = sectionNumber
-        let осеваяНагрузка = axelLoad
+        let осевойНагрузкой = axelLoad
 
         let безПозиции = NonePosition
         let Спозиция = S_Position
@@ -99,13 +99,13 @@ namespace TractionCalc
         // участок пути
         let участокПути = section
         
-        let длина = length
-        let уклон = gradient
-        let скорость = speed
+        let длинной = length
+        let уклоном = gradient
+        let скорости = speed
 
-        let кривая = curve
-        let радиус = radius
-        let угол = angle
+        let кривую = curve
+        let радиусом = radius
+        let уголом = angle
 
         let звеньевойПуть = sectionRail
         let бестыковойПуть = longWeldedRail

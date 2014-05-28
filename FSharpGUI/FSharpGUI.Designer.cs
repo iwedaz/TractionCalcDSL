@@ -405,7 +405,9 @@
 			// 
 			// btHighlightCurrentLine
 			// 
+			this.btHighlightCurrentLine.Checked = true;
 			this.btHighlightCurrentLine.CheckOnClick = true;
+			this.btHighlightCurrentLine.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.btHighlightCurrentLine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.btHighlightCurrentLine.Image = global::FSharpGUI.Properties.Resources.edit_padding_top;
 			this.btHighlightCurrentLine.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -821,7 +823,7 @@
 			this.KeyPreview = true;
 			this.MainMenuStrip = this.msMain;
 			this.Name = "FSharpGUI";
-			this.Text = "PowerfulCSharpEditor";
+			this.Text = "FSharpEditor";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PowerfulCSharpEditor_FormClosing);
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PowerfulCSharpEditor_KeyDown);

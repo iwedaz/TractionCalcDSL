@@ -227,7 +227,7 @@ namespace FSharpGUI
 				List<ExplorerItem> list = new List<ExplorerItem>();
 				int lastClassIndex = -1;
 				//find classes, methods and properties
-				Regex regex = new Regex(@"^(?<range>[\w\s]+\b(class|struct|enum|interface)\s+[\w<>,\s]+)|^\s*(public|private|internal|protected)[^\n]+(\n?\s*{|;)?" , RegexOptions.Multiline);
+				Regex regex = new Regex(@"^(?<range>[\w\s]+\b(module|type|let|member|interface)\s+[\w<>\.,\s]+)|^\s*(public|private|internal|protected)[^\n]+(\n?\s*{|;)?" , RegexOptions.Multiline);
 				foreach(Match r in regex.Matches(text))
 					try
 					{
@@ -238,9 +238,11 @@ namespace FSharpGUI
 						s = s.Trim();
 
 						var item = new ExplorerItem() { title = s , position = r.Index };
-						if(Regex.IsMatch(item.title , @"\b(class|struct|enum|interface)\b"))
+						if(Regex.IsMatch(item.title , @"\b(module|type|let|member|interface)\b"))
 						{
 							item.title = item.title.Substring(item.title.LastIndexOf(' ')).Trim();
+							if(item.title.Contains("this."))
+								item.title = item.title.Split(new [] { '.' }) [1];
 							item.type = ExplorerItemType.Class;
 							list.Sort(lastClassIndex + 1 , list.Count - (lastClassIndex + 1), new ExplorerItemComparer());
 							lastClassIndex = list.Count;
