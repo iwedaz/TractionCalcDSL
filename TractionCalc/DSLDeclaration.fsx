@@ -37,31 +37,34 @@ namespace TractionCalc
 // ############################# TOKEN WORDS ###############################################
 
         /////////////////// general tokens
-        type AndATokenType = class new () = {} end
+        type AndATokenType = class new() = {} end
         let andA = AndATokenType()
 
-        type WithATokenType = class new () = {} end
+        type WithATokenType = class new() = {} end
         let withA = WithATokenType()
 
-        type ForATokenType = class new () = {} end
+        type ForATokenType = class new() = {} end
         let forA = ForATokenType()
 
-        type FromATokenType = class new () = {} end
+        type FromATokenType = class new() = {} end
         let fromA = FromATokenType()
 
-        type OnATokenType = class new () = {} end
+        type OnATokenType = class new() = {} end
         let onA = OnATokenType()
 
-        type BuiltAsTokenType = class new () = {} end
+        type InATokenType = class new() = {} end
+        let inA = InATokenType()
+
+        type BuiltAsTokenType = class new() = {} end
         let builtAs = BuiltAsTokenType()
 
-        type IncludedTokenType = class new () = {} end
+        type IncludedTokenType = class new() = {} end
         let included = IncludedTokenType()
 
-        type BasedOnTokenType = class new () = {} end
+        type BasedOnTokenType = class new() = {} end
         let basedOn = BasedOnTokenType()
 
-        type TypeATokenType = class new () = {} end
+        type TypeATokenType = class new() = {} end
         let typeA = TypeATokenType()
 
 
@@ -89,19 +92,31 @@ namespace TractionCalc
         let SliderBearing = BearingType.SliderBearing
 
         /// <summary>Чугунная колодка</summary>
-        let CastIronBrakeShoe = BrakeShoeType.CastIronBrakeShoe
+        let CastIronFromPlainMaterial = BrakeShoeType.CastIronFromPlainMaterialBrakeShoe
+
+        /// <summary>Чугунная колодка</summary>
+        let CastIronWithHighPhosphorusBrakeShoe = BrakeShoeType.CastIronWithHighPhosphorusBrakeShoe
+
+        /// <summary>Чугунная колодка</summary>
+        let CastIronWith3PercentPhosphorusBrakeShoe = BrakeShoeType.CastIronWith3PercentPhosphorusBrakeShoe
 
         /// <summary>Композитная колодка</summary>
-        let CompositeBrakeShoe = BrakeShoeType.CompositeBrakeShoe
+        let Composite8166BrakeShoe = BrakeShoeType.Composite8166BrakeShoe
 
-        type MassTokenType = class new () = {} end
+        /// <summary>Композитная колодка</summary>
+        let Composite328303BrakeShoe = BrakeShoeType.Composite328303BrakeShoe
+
+        type MassTokenType = class new() = {} end
         let mass = MassTokenType()
 
-        type AxelNumberTokenType = class new () = {} end
+        type AxelNumberTokenType = class new() = {} end
         let axelNumber = AxelNumberTokenType()
 
-        type BrakingAxelsTokenType = class new () = {} end
+        type BrakingAxelsTokenType = class new() = {} end
         let brakingAxels = BrakingAxelsTokenType()
+
+        type BrakingPressurePerAxelType = class new() = {} end
+        let brakingPressurePerAxel = BrakingPressurePerAxelType()
 
 
         /////////////////// locomotive tokens
@@ -115,36 +130,36 @@ namespace TractionCalc
         /// <summary>Дизель-электрический</summary>
         let DieselElectricLocomotive = LocomotivePowerType.DieselElectricLocomotive
 
-        type RatedSpeedTokenType = class new () = {} end
+        type RatedSpeedTokenType = class new() = {} end
         let ratedSpeed = RatedSpeedTokenType()
 
-        type RatedTractiveEffortTokenType = class new () = {} end
+        type RatedTractiveEffortTokenType = class new() = {} end
         let ratedTractiveEffort = RatedTractiveEffortTokenType()
 
-        type SectionNumberTokenType = class new () = {} end
+        type SectionNumberTokenType = class new() = {} end
         let sectionNumber = SectionNumberTokenType()
 
-        type AxelLoadTokenType = class new () = {} end
+        type AxelLoadTokenType = class new() = {} end
         let axelLoad = AxelLoadTokenType()
 
 
         /////////////////// section tokens
-        type LengthTokenType = class new () = {} end
+        type LengthTokenType = class new() = {} end
         let length = LengthTokenType()
 
-        type GradientTokenType = class new () = {} end
+        type GradientTokenType = class new() = {} end
         let gradient = GradientTokenType()
 
-        type SpeedTokenType = class new () = {} end
+        type SpeedTokenType = class new() = {} end
         let speed = SpeedTokenType()
 
-        type CurveTokenType = class new () = {} end
+        type CurveTokenType = class new() = {} end
         let curve = CurveTokenType()
 
-        type CurveRadiusTokenType = class new () = {} end
+        type CurveRadiusTokenType = class new() = {} end
         let radius = CurveRadiusTokenType()
         
-        type CurveAngleTokenType = class new () = {} end
+        type CurveAngleTokenType = class new() = {} end
         let angle = CurveAngleTokenType()
 
         let sectionRail = RailType.SectionRail
@@ -154,25 +169,25 @@ namespace TractionCalc
         /////////////////// tractionCharacteristic
 
         /// <summary>Не задействована</summary>
-        let NonePosition = LocomotiveThrottlePositionType.None
+        let NoneMode = LocomotiveTractionEngineModeType.None
 
         /// <summary>Последовательное возбуждение</summary>
-        let S_Position = LocomotiveThrottlePositionType.S
+        let S_Mode = LocomotiveTractionEngineModeType.S
 
         /// <summary>Последовательно-параллельное возбуждение</summary>
-        let SP_Position = LocomotiveThrottlePositionType.SP
+        let SP_Mode = LocomotiveTractionEngineModeType.SP
 
         /// <summary>Параллельное возбуждение</summary>
-        let PP_Position = LocomotiveThrottlePositionType.PP
+        let PP_Mode = LocomotiveTractionEngineModeType.PP
 
         /// <summary>Режим ослабления магнитного поля 1</summary>
-        let OP1_Position = LocomotiveThrottlePositionType.OP1
+        let OP1_Mode = LocomotiveTractionEngineModeType.OP1
 
         /// <summary>Режим ослабления магнитного поля 2</summary>
-        let OP2_Position = LocomotiveThrottlePositionType.OP2
+        let OP2_Mode = LocomotiveTractionEngineModeType.OP2
 
-        type LocomotiveThrottlePositionTokenType = class new () = {} end
-        let locomotiveThrottlePosition = LocomotiveThrottlePositionTokenType()
+        type EngineModeTokenType = class new() = {} end
+        let locomotiveEngineMode = EngineModeTokenType()
 
 // ################################   TRAIN   ###############################################
 
@@ -184,8 +199,7 @@ namespace TractionCalc
         let train (valueName : string)
             =
             let t = new Train(valueName)
-            //_calcTask._train <- t
-            _train <- t :: _train
+            _train <- _train @ [t]
             t
 
 
@@ -198,8 +212,8 @@ namespace TractionCalc
         let stock (valueName : string)
             =
             let s = new Stock(valueName)
-            if _train.Length > 0 then _train.Head._stocks <- s :: _train.Head._stocks
-            _stock <- s :: _stock
+            if _train.Length > 0 then _train.Head._stocks <- _train.Head._stocks @ [s]
+            _stock <- _stock @ [s]
             s
 
 
@@ -212,26 +226,28 @@ namespace TractionCalc
         // carriage "someCarriage" typeA OpenCarriage length 11.5<m> mass 10.1<t> withA axelNumber 4 onA RollerBearing withA brakingAxels 4 onA CompositeBrakeShoe
         // carriage "someCarriage"
         //     typeA  OpenCarriage
-        //     length               11.5<m>
-        //     mass                 10.1<t>
-        //     withA  axelNumber    4
-        //     onA                  RollerBearing
-        //     withA  brakingAxels  4
-        //     onA                  CompositeBrakeShoe
+        //     length                         11.5<m>
+        //     mass                           10.1<t>
+        //     withA  axelNumber              4
+        //     onA                            RollerBearing
+        //     withA  brakingAxels            4
+        //     onA                            CompositeBrakeShoe
+        //     withA  brakingPressurePerAxel  90000.0<N>
         let carriage (valueName : string)
-            (keyTypeA : TypeATokenType)                                              (valueCarriageType : CarriageType)
-            (keyLength : LengthTokenType)                                            (valueLength : float<m>)
-            (keyMass : MassTokenType)                                                (valueMass : float<t>)
-            (keyWithA : WithATokenType)   (keyAxelNumber : AxelNumberTokenType)      (valueAxels : int)
-            (keyOnA : OnATokenType)                                                  (valueBearingType : BearingType)
-            (keyWithAA : WithATokenType)  (keyBrakingAxels : BrakingAxelsTokenType)  (valueBrakingAxels : int)
-            (keyOnAA : OnATokenType)                                                 (valueBrakeShoeType : BrakeShoeType)
+            (keyTypeA : TypeATokenType)                                                        (valueCarriageType : CarriageType)
+            (keyLength : LengthTokenType)                                                      (valueLength : float<m>)
+            (keyMass : MassTokenType)                                                          (valueMass : float<t>)
+            (keyWithA : WithATokenType)   (keyAxelNumber : AxelNumberTokenType)                (valueAxels : int)
+            (keyOnA : OnATokenType)                                                            (valueBearingType : BearingType)
+            (keyWithAA : WithATokenType)  (keyBrakingAxels : BrakingAxelsTokenType)            (valueBrakingAxels : int)
+            (keyOnAA : OnATokenType)                                                           (valueBrakeShoeType : BrakeShoeType)
+            (keyWithAB : WithATokenType)  (keyBrakingPressurePerAxel : BrakingPressurePerAxelType)  (valueBrakingPressure : float<N>)
             =
-            let c = new Carriage(valueName , valueCarriageType , valueLength , valueMass ,
-                                 valueAxels , valueBearingType , valueBrakingAxels , valueBrakeShoeType)
-            if _stock.Length > 0 then _stock.Head._carriages <- c :: _stock.Head._carriages
-            _carriage <- c :: _carriage
-            c
+            let car = new Carriage(valueName , valueCarriageType , valueLength , valueMass , valueAxels ,
+                                 valueBearingType , valueBrakingAxels , valueBrakeShoeType , valueBrakingPressure)
+            if _stock.Length > 0 then _stock.Head._carriages <- _stock.Head._carriages @ [car]
+            _carriage <- _carriage @ [car]
+            car
 
 
 
@@ -243,14 +259,17 @@ namespace TractionCalc
 
         // locomotive "2ТЭ116" typeA DieselElectricLocomotive length 18.15<m> mass 138.0<t> withA ratedSpeed (KmPerHourToMetrePerSec 24.2<km/hour>) ratedTractiveEffort 506000.0<N> fromA sectionNumber 2  withA axelNumber 6 withA axelLoad 226000.0<N>
         // locomotive "2ТЭ116"
-        //     typeA                DieselElectricLocomotive
-        //     length               18.15<m>
-        //     mass                 138.0<t>
-        //     withA ratedSpeed     (KmPerHourToMetrePerSec 24.2<km/hour>)
-        //     ratedTractiveEffort  506000.0<N>
-        //     fromA sectionNumber  2
-        //     withA axelNumber     6
-        //     withA axelLoad       226000.0<N>
+        //     typeA                          DieselElectricLocomotive
+        //     length                         18.15<m>
+        //     mass                           138.0<t>
+        //     withA ratedSpeed               (KmPerHourToMetrePerSec 24.2<km/hour>)
+        //     ratedTractiveEffort            506000.0<N>
+        //     fromA sectionNumber            2
+        //     withA axelNumber               6
+        //     withA axelLoad                 226000.0<N>
+        //     withA  brakingAxels            4
+        //     onA                            CompositeBrakeShoe
+        //     withA  brakingPressurePerAxel  120000.0<N>
         let locomotive (valueName : string)
             (keyTypeA : TypeATokenType)                                                 (valueLocomotivePowerType : LocomotivePowerType)
             (keyLength : LengthTokenType)                                               (valueLength : float<m>)
@@ -260,12 +279,15 @@ namespace TractionCalc
             (keyFromA : FromATokenType)    (keySectionNumber : SectionNumberTokenType)  (valueSectionNumber : int)
             (keyWithAA : WithATokenType)   (keyAxelNumber : AxelNumberTokenType)        (valueAxelNumber : int)
             (keyWithAB : WithATokenType)   (keyAxelLoad : AxelLoadTokenType)            (valueAxelLoad : float<N>)
+            (keyWithAC : WithATokenType)  (keyBrakingAxels : BrakingAxelsTokenType)            (valueBrakingAxels : int)
+            (keyOnAA : OnATokenType)                                                           (valueBrakeShoeType : BrakeShoeType)
+            (keyWithAD : WithATokenType)  (keyBrakingPressurePerAxel : BrakingPressurePerAxelType)  (valueBrakingPressure : float<N>)
             =
             let l = new Locomotive(valueName , valueLocomotivePowerType , valueLength , valueMass ,
                                    valueRatedSpeed , valueRatedTractiveEffort , valueSectionNumber ,
-                                   valueAxelNumber , valueAxelLoad)
-            if _train.Length > 0 then _train.Head._locomotives <- l :: _train.Head._locomotives
-            _locomotive <- l :: _locomotive
+                                   valueAxelNumber , valueAxelLoad , valueBrakingAxels , valueBrakeShoeType , valueBrakingPressure)
+            if _train.Length > 0 then _train.Head._locomotives <- _train.Head._locomotives @ [l]
+            _locomotive <- _locomotive @ [l]
             l
 
 
@@ -276,7 +298,7 @@ namespace TractionCalc
 
         let tractionCharacteristic (valueName : string)
             =
-            _charactList <- valueName :: _charactList
+            _charactList <- _charactList @ [valueName]
             valueName
 
 
@@ -285,20 +307,20 @@ namespace TractionCalc
         let mutable _charactRecordList : LocomotiveThrottlePositionRecordType list = []
         
 
-        // tractionCharacteristicRecord forA speed 10.1<km/hour> withA locomotiveThrottlePosition S_Position andA ratedTractiveEffort 120900.0<N>
+        // tractionCharacteristicRecord forA speed 10.1<km/hour> withA locomotiveThrottlePosition S_Mode andA ratedTractiveEffort 120900.0<N>
         // tractionCharacteristicRecord
         //     forA speed 10.1<km/hour>
-        //     withA locomotiveThrottlePosition S_Position
+        //     withA locomotiveThrottlePosition S_Mode
         //     andA ratedTractiveEffort 120900.0<N>
         let tractionCharacteristicRecord
-            (forA : ForATokenType)       (keySpeed : SpeedTokenType)                                            (valueSpeed : float<km/hour>)
-            (keyWithA : WithATokenType)  (keyLocomotiveThrottlePosition : LocomotiveThrottlePositionTokenType)  (valueLocomotiveThrottlePosition : LocomotiveThrottlePositionType)
-            (keyAndA : AndATokenType)    (keyRatedTractiveEffort : RatedTractiveEffortTokenType)                (valueRatedTractiveEffort : float<N>)
+            (keyForA : ForATokenType)    (keySpeed : SpeedTokenType)                                            (valueSpeed : float<km/hour>)
+            (keyInA : InATokenType)      (keyEngineMode : EngineModeTokenType)  (valueLocomotiveEngineMode : LocomotiveTractionEngineModeType)
+            (keyWithA : WithATokenType)  (keyRatedTractiveEffort : RatedTractiveEffortTokenType)                (valueRatedTractiveEffort : float<N>)
             =
             let record : LocomotiveThrottlePositionRecordType =
-                new LocomotiveThrottlePositionRecordType(valueSpeed , valueLocomotiveThrottlePosition , valueRatedTractiveEffort)
-            if _locomotive.Length > 0 then _locomotive.Head._tractionCharacteristic <- record :: _locomotive.Head._tractionCharacteristic
-            _charactRecordList <- record :: _charactRecordList
+                new LocomotiveThrottlePositionRecordType(valueSpeed , valueLocomotiveEngineMode , valueRatedTractiveEffort)
+            if _locomotive.Length > 0 then _locomotive.Head._tractionCharacteristic <- _locomotive.Head._tractionCharacteristic
+            _charactRecordList <- _charactRecordList @ [record]
             record
 
 
@@ -311,8 +333,7 @@ namespace TractionCalc
         // track "someTrack"
         let track (valueName : string) =
             let t = new Track(valueName)
-            //_calcTask._track <- t
-            _track <- t :: _track
+            _track <- _track @ [t]
             t
 
 
@@ -335,8 +356,8 @@ namespace TractionCalc
             (keyForA : ForATokenType)        (keySpeed : SpeedTokenType)        (valueSpeed : float<km/hour>)
             =
             let s = new TrackSection(valueName , valueLength , valueGradient , valueRailType , valueSpeed)
-            if _track.Length > 0 then _track.Head._sections <- s :: _track.Head._sections
-            _trackSection <- s :: _trackSection
+            if _track.Length > 0 then _track.Head._sections <- _track.Head._sections @ [s]
+            _trackSection <- _trackSection @ [s]
             s
 
 
@@ -359,8 +380,8 @@ namespace TractionCalc
             (keyWithAA : WithATokenType)       (keyCurveRadius : CurveRadiusTokenType)  (valueCurveRadius : float<m>)
             =
             let s = new TrackSection(valueName , valueLength , valueGradient , valueRailType , valueSpeed , valueCurveLength , valueCurveRadius)
-            if _track.Length > 0 then _track.Head._sections <- s :: _track.Head._sections
-            _trackSection <- s :: _trackSection
+            if _track.Length > 0 then _track.Head._sections <- _track.Head._sections @ [s]
+            _trackSection <- _trackSection @ [s]
             s
 
 
@@ -381,19 +402,67 @@ namespace TractionCalc
             (keyWithAA : WithATokenType)       (keyAngle : CurveAngleTokenType)   (valueCurveAngle : float)
             =
             let s = new TrackSection(valueName , valueLength , valueGradient , valueRailType , valueSpeed , valueCurveAngle)
-            if _track.Length > 0 then _track.Head._sections <- s :: _track.Head._sections
-            _trackSection <- s :: _trackSection
+            if _track.Length > 0 then _track.Head._sections <- _track.Head._sections @ [s]
+            _trackSection <- _trackSection @ [s]
             s
 
 // ################################   SERVICE   ###############################################
 
+        let private printTrackSectionProfileBase (section : TrackSection) (startPoint : float * float) =
+            let plotName = section._name
 
-        let printTrackSection (sectionName : string) =
-            Chart.Line [ for x in 1.0 .. 100.0 -> (x, x ** 2.0) ]
+            let sectionLength = section._length
+            let sectionGradient = section._gradient / 1000.0
+
+            let dx = fst startPoint + sqrt((sectionLength * sectionLength) / (1.0 + sectionGradient * sectionGradient) / 1.0<m^2>)
+            let dy = snd startPoint + dx * sectionGradient
+            let endPoint = (dx , dy)
+
+            let plot = Chart.Line([ startPoint ; endPoint ] , Name = plotName)
+            plot.WithXAxis(Title = "Длина, м" , Min = 0.0) |> ignore
+            plot.WithYAxis(Title = "Высота, м") |> ignore
+            plot.WithLegend(Title = "Track section" , InsideArea = false , Docking = ChartTypes.Docking.Bottom) |> ignore
+
+            plot , endPoint
+            
 
 
-        let printTrack (trackName : string) =
-            Chart.Line [ for x in 1.0 .. 100.0 -> (x, x ** 2.0) ]
+        let printTrackSectionProfile (sectionName : string) =
+            let sectionOpt = _trackSection |> List.tryFind(fun x -> x._name = sectionName)
+            let plotName = "Track section profile plot - " + sectionName
+            if not sectionOpt.IsNone
+            then 
+                let section = sectionOpt.Value
+                fst (printTrackSectionProfileBase section (0.0 , 0.0))
+            else
+                let plot = Chart.Line([ (0.0 , 0.0) ], Name = plotName , Title = "Section not found")
+                plot.WithXAxis(Min = 0.0) |> ignore
+                plot.WithYAxis(Min = 0.0) |> ignore
+                plot
+
+
+        let printTrackProfile (trackName : string) =
+            let trackOpt = _track |> List.tryFind(fun x -> x._name = trackName)
+            if not trackOpt.IsNone
+            then
+                let sections = trackOpt.Value._sections
+                let startPoint = ref (0.0 , 0.0)
+                let v = [for section in sections do
+                            let p = printTrackSectionProfileBase section !startPoint
+                            startPoint := snd p
+                            yield fst p ]
+                let plot = Chart.Combine(v)
+                plot.WithXAxis(Title = "Длина, м" , Min = 0.0) |> ignore
+                plot.WithYAxis(Title = "Высота, м") |> ignore
+                plot.WithLegend(Title = "Профиль пути" , InsideArea = false , Docking = ChartTypes.Docking.Bottom) |> ignore
+                plot
+            else 
+                let plot = Chart.Line([ (0.0 , 0.0) ], Name = "Track section profile plot - " , Title = "Section not found")
+                plot.WithXAxis(Min = 0.0) |> ignore
+                plot.WithYAxis(Min = 0.0) |> ignore
+                plot
+
+
 
 
 
@@ -402,16 +471,16 @@ namespace TractionCalc
 
         /////////////////// ключевое слово calculationTask
 
-        let mutable _calcTask : CalculationTask = Unchecked.defaultof<CalculationTask>
-
-        // calculationTask "task"
-        let calculationTask (valueName : string)
-            =
-            let ct = new CalculationTask(valueName)// , valueTrain , valueTrack)
-            ct._train <- _train.Head
-            ct._track <- _track.Head
-            _calcTask <- ct
-            _calcTask
+//        let mutable _calcTask : CalculationTask = Unchecked.defaultof<CalculationTask>
+//
+//        // calculationTask "task"
+//        let calculationTask (valueName : string)
+//            =
+//            let ct = new CalculationTask(valueName)// , valueTrain , valueTrack)
+//            ct._train <- _train.Head
+//            ct._track <- _track.Head
+//            _calcTask <- ct
+//            _calcTask
 
 
         /////////////////// ключевое слово task1

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -64,7 +65,32 @@ namespace FSharpGUI
 				var tab = new FATabStripItem(fileName != null ? Path.GetFileName(fileName) : "[new]" , tb);
 				tab.Tag = fileName;
 				if(fileName != null)
-					tb.OpenFile(fileName);
+					tb.OpenFile(fileName , System.Text.Encoding.UTF8);
+				else tb.Text = 
+@"//Если данный файл не будет исполняться
+//и его предполагается использовать как шаблон
+//для хранения описанного вагона, локомотива и т.д.,
+//то необходимо удалить блок заключённый в ######
+//##################################################
+#load ""DSLLocalRU.fsx""
+
+open TractionCalc.MeasurementUnit
+open TractionCalc.Consts
+open TractionCalc.DSLDeclaration
+open TractionCalc.DSLLocalRU
+//##################################################
+
+//Для загрузки шаблона из этого файла
+//необходимо написать
+//#load ""ПУТЬ/К/ФАЙЛУ/ИМЯ_ФАЙЛА_С_РАСШИРЕНИЕМ""
+//в исполняемом файле в той строке,
+//где должен находиться объект
+
+//Рекомендуется хранить только один описанный объект
+//на один файл шаблона
+
+
+";
 				tb.Tag = new TbInfo();
 				tsFiles.AddTab(tab);
 				tsFiles.SelectedItem = tab;
@@ -340,7 +366,8 @@ namespace FSharpGUI
 
 			try
 			{
-				File.WriteAllText(tab.Tag as string , tb.Text);
+				tb.SaveToFile(tab.Tag as string , System.Text.Encoding.UTF8);
+				//File.WriteAllText(tab.Tag as string , tb.Text);
 				tb.IsChanged = false;
 			}
 			catch (Exception ex)
@@ -373,7 +400,7 @@ namespace FSharpGUI
 					{
 						tsFiles.SelectedItem.Tag = oldFile;
 						tsFiles.SelectedItem.Title = Path.GetFileName(oldFile);
-				}
+					}
 			}
 		}
 
@@ -930,6 +957,18 @@ namespace FSharpGUI
 
 		private void runScriptButton_Click(object sender , EventArgs e)
 		{
+			if(tsFiles.SelectedItem == null)
+				return;
+
+			if(tsFiles.SelectedItem.Tag == null)
+			{
+				if(MessageBox.Show("Перед запуском файл необходимо сохранить. Продолжить?" , "Сохранение файла",
+				MessageBoxButtons.YesNo) == DialogResult.Yes)
+					Save(tsFiles.SelectedItem);
+			}
+			//else Save(tsFiles.SelectedItem);
+
+
 			var fsi = new FSharpInterctive(tsFiles.SelectedItem.Tag.ToString() ,
 				CurrentTB.Text.Split(new [] { "\n" , "\n\r" } , StringSplitOptions.RemoveEmptyEntries));
 			fsi.FormClosing += Fsi_FormClosing;
@@ -962,6 +1001,140 @@ namespace FSharpGUI
 				runScriptButton_Click(sender , e);
 				e.Handled = true;
 			}
+		}
+
+		private void dslTemplateList_MouseDoubleClick(object sender , MouseEventArgs e)
+		{
+			var item = dslTemplateList.SelectedItems[0];
+			if(item == null || CurrentTB == null)
+				return;
+
+			switch(item.Text)
+			{
+			case "Вагон":
+				CurrentTB.InsertText(
+@"вагон ""НАИМЕНОВАНИЕ_ВАГОНА""
+	типа ТИП_ВАГОНА
+	длиной 0.0<м>
+	массой 0.0<т>
+	с числомОсей 0
+	на ТИП_ПОДШИПНИКОВ
+	с числомТормозныхОсей 0
+	на ТИП_ТОРМОЗНЫХ_КОЛОДОК
+	с нажатиемНаОсь 0.0<Н>;;
+
+");
+				break;
+
+
+			case "Состав":
+				CurrentTB.InsertText(
+@"состав ""НАИМЕНОВАНИЕ_СОСТАВА"";;
+
+");
+				break;
+
+
+			case "Локомотив":
+				CurrentTB.InsertText(
+@"локомотив ""НАИМЕНОВАНИЕ_ЛОКОМОТИВА""
+	типа ТИП_ТЯГИ_ЛОКОМОТИВА
+	длиной 0.0<м>
+	массой 0.0<т>
+	с расчетнойСкоростью 0.0<км/час>
+	расчетнойСилойТяги 0.0<Н>
+	из колиствоСекций 0
+	с числомОсей 0
+	с осевойНагрузкой 0.0<Н>
+	с числомТормозныхОсей 0
+	на ТИП_ТОРМОЗНЫХ_КОЛОДОК
+	с нажатиемНаОсь 0.0<Н>;;
+
+");
+				break;
+
+
+			case "Поезд":
+				CurrentTB.InsertText(
+@"поезд ""НАИМЕНОВАНИЕ_ПОЕЗДА"";;
+
+");
+				break;
+
+
+			case "Участок пути":
+				CurrentTB.InsertText(
+@"участокПути ""НАИМЕНОВАНИЕ_УЧАСТКА_ПУТИ""
+	длиной 0.0<м>
+	с уклоном 0.0
+	построенныйКак ТИП_КОНТСРУКЦИИ_РЕЛЬСОВОГО_ПУТИ
+	для скорости 0.0<км/час>;;
+
+");
+				break;
+
+
+			case "Путь":
+				CurrentTB.InsertText(
+@"путь ""НАИМЕНОВАНИЕ_ПУТИ"";;
+
+");
+				break;
+
+
+			case "1. Расчёт массы состава при его движение с расчётной скоростью":
+				CurrentTB.InsertText(
+@"");
+				break;
+
+
+			case "2. Расчёт массы состава с учётом использования кинетической энергии поезда":
+				CurrentTB.InsertText(
+@"");
+				break;
+
+
+			case "3. Проверка массы состава на трогание":
+				CurrentTB.InsertText(
+@"");
+				break;
+
+			case "4. Проверка массы состава по длине приёмо-отправочных путей":
+				CurrentTB.InsertText(
+@"");
+				break;
+
+
+			case "5. Построение диаграммы удельных равнодействующих сил":
+				CurrentTB.InsertText(
+@"");
+				break;
+
+
+			case "6. Решение прямой тормозной задачи":
+				CurrentTB.InsertText(
+@"");
+				break;
+
+
+			case "7. Решение обратной тормозной задачи":
+				CurrentTB.InsertText(
+@"");
+				break;
+
+
+			case "8. Расчёт времени хода поезда по железнодорожному участку":
+				CurrentTB.InsertText(
+@"");
+				break;
+
+
+			default:
+				break;
+			}
+
+
+			Console.WriteLine(item.Text);
 		}
 	}
 

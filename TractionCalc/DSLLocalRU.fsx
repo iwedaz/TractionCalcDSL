@@ -16,6 +16,7 @@ namespace TractionCalc
         let для = forA
         let из = fromA
         let на = onA
+        let в = inA
         let построенныйКак = builtAs
         let включающий = included
         let основанныйНа = basedOn
@@ -25,7 +26,13 @@ namespace TractionCalc
 
         // единицы измерения
         [<Measure>]
+        type кгс = kgs
+
+        [<Measure>]
         type Н = N
+
+        let кгсПреобрНьютоны = kgsToNewton
+        let НьютоныПреобрКГС = NewtonToKGS
 
         [<Measure>]
         type т = t
@@ -36,11 +43,21 @@ namespace TractionCalc
         [<Measure>]
         type км = km
 
+        let кмПреобрМетры = KmToMetre
+        let МетрыПреобрКм = MetreToKm
+
+
         [<Measure>]
         type сек = sec
 
         [<Measure>]
         type час = hour
+
+        let часыПреобрСек = HourToSec
+        let СекПреобрЧасы = SecToHour
+        let кмВчасПреобрМетрыВсек = KmPerHourToMetrePerSec
+        let метрыВсекПреобрКмВчас = MetrePerSecToKmPerHour
+
 
 
 
@@ -62,12 +79,16 @@ namespace TractionCalc
         let подшиникахКачения = RollerBearing
         let подшипникахСкольжения = SliderBearing
 
-        let чугунныхКолодках = CastIronBrakeShoe
-        let композитныхКолодках = CompositeBrakeShoe
+        let чугунныхКолодках = CastIronFromPlainMaterialBrakeShoe
+        let чугунныхВысокофосфористыхКолодках = CastIronWithHighPhosphorusBrakeShoe
+        let чугунныхС3ПроцентамиФосфораКолодках = CastIronWith3PercentPhosphorusBrakeShoe
+        let композитных8166Колодках = Composite8166BrakeShoe
+        let композитных328303Колодках = Composite328303BrakeShoe
 
         let массой = mass
         let числомОсей = axelNumber
         let числомТормозныхОсей = brakingAxels
+        let нажатиемНаОсь = brakingPressurePerAxel
 
 
         // локомотив
@@ -82,15 +103,16 @@ namespace TractionCalc
         let колиствоСекций = sectionNumber
         let осевойНагрузкой = axelLoad
 
-        let безПозиции = NonePosition
-        let Спозиция = S_Position
-        let СПпозиция = SP_Position
-        let ППпозиция = PP_Position
-        let ОП1позиция = OP1_Position
-        let ОП2позиция = OP2_Position
+        let режимеТяговыхДвигателей = locomotiveEngineMode
+        let безРежима = NoneMode
+        let С_Режим = S_Mode
+        let СП_Режим = SP_Mode
+        let ПП_Режим = PP_Mode
+        let ОП1_Режим = OP1_Mode
+        let ОП2_Режим = OP2_Mode
 
         let тяговаяХарактеристика = tractionCharacteristic
-        let ОтсчетТяговойХарактеристики = tractionCharacteristicRecord
+        let отсчетТяговойХарактеристики = tractionCharacteristicRecord
 
 
         let путь = track
@@ -98,8 +120,10 @@ namespace TractionCalc
 
         // участок пути
         let участокПути = section
+        let участокПутиСКривойПоРадиусу = sectionWithRadius
+        let участокПутиСКривойПоУглу = sectionWithAngle
         
-        let длинной = length
+        let длиной = length
         let уклоном = gradient
         let скорости = speed
 
@@ -110,12 +134,17 @@ namespace TractionCalc
         let звеньевойПуть = sectionRail
         let бестыковойПуть = longWeldedRail
 
-
-
-        let расчетноеЗадание = calculationTask
+        // задачи
         let задача1 = task1
         let задача2 = task2
         let задача3 = task3
         let задача4 = task4
         let задача5 = task5
+//        let задача6 = task6
+//        let задача7 = task7
+//        let задача8 = task8
 
+
+        //
+        let отобразитьУчастокПути = printTrackSectionProfile
+        let отобразитьПрофильПути = printTrackProfile

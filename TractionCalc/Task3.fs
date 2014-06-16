@@ -38,19 +38,26 @@
             /// </summary>
             member this.StockGetawayResistanceCheck : bool =
                 let locos = this._train._locomotives
-                let locoTractiveEffort = locos |> List.sumBy(fun l -> (l._tractionCharacteristic |> List.sumBy(fun r -> if r._speed = 0.0<km/hour> then r._tractiveEffort else 0.0<N>)))
+                let locoTractiveEffort = locos
+                                         |> List.sumBy(fun l -> (l._tractionCharacteristic
+                                                        |> List.sumBy(fun r -> if r._speed = 
+                                                                                0.0<km/hour> then r._tractiveEffort else 0.0<N>)))
                 let locosMass = locos |> List.sumBy(fun l  -> l.Mass)
 
                 let stocks = this._train._stocks
                 let stockGetawayResistance = stocks |> List.sumBy(fun s -> s.GetawayResistance)
                 let stockMass = stocks |> List.sumBy(fun s -> s.Mass)
+                let sectionRunningResistance = this._trackSection.AdditionalSpecificRunningResistance
 
-                let calcStockMass = locoTractiveEffort / (stockGetawayResistance + this._trackSection.AdditionalSpecificRunningResistance) - locosMass
+                let calcStockMass = (locoTractiveEffort - locosMass * sectionRunningResistance)
+                                        / (stockGetawayResistance + sectionRunningResistance)
+//                let calcStockMass = locoTractiveEffort / (stockGetawayResistance + asrr) - locosMass
                 let result = stockMass < calcStockMass
 
                 if locos.Length > 1
-                then result && locoTractiveEffort <= (930000.0<N> + stockMass * (stockGetawayResistance + this._trackSection.AdditionalSpecificRunningResistance))
+                then result && locoTractiveEffort <= 
+                     (930000.0<N> + stockMass * (stockGetawayResistance + sectionRunningResistance))
                 else result
 
-            end
+        end
 

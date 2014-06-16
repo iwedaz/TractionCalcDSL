@@ -6,7 +6,7 @@ open TractionCalc.DSLDeclaration
 
 stock "someStock1";;
 carriage "someCarriage1" typeA OpenCarriage length 25.0<m> mass 80.0<t> withA axelNumber 4
-                         onA RollerBearing withA brakingAxels 4 onA CastIronBrakeShoe;;
+                         onA RollerBearing withA brakingAxels 4 onA CastIronFromPlainMaterialBrakeShoe;;
 
 
 locomotive "2ТЭ116" typeA DieselElectricLocomotive length 18.15<m> mass 138.0<t>

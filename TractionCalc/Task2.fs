@@ -74,7 +74,7 @@
                 !m
 
 
-            member this.CarriagesAverageSRR (speed : float<km/hour>) (railType : RailType) : float<N/t> =
+            member private this.CarriagesAverageSRR (speed : float<km/hour>) (railType : RailType) : float<N/t> =
                 let mutable result = 0.0<N/t>
                 let carList = this._carriages |> Map.toList
                 for car in carList do
@@ -84,22 +84,61 @@
                 result
 
 
+//            member this.StockMass (trackSectionName : string) (startSpeed : float<km/hour>) : float<t> =
+//                let sectionOpt = this._track._sections |> List.tryFind(fun x -> x._name = trackSectionName)
+//                if not sectionOpt.IsNone && sectionOpt.Value._speedLimit >= startSpeed
+//                then this.StockMass sectionOpt.Value startSpeed
+//                else 0.0<t>
+
             /// <summary>
             /// Расчётная максимальная масса состава на заданном участке
             /// при заданном локомотиве, Qmax, т
             /// </summary>
-            member this.StockMass : float<t> =
+            /// <param name="trackSection"></param>
+            /// <param name="startSpeed"></param>
+            member this.StockMass (trackSection : TrackSection) (startSpeed : float<km/hour>) : float<t> =
                 let loco = this._locomotive
-                let track = (this._track._sections |> List.sortBy(fun x -> x.Gradient)).Item 1
-                let up = 
-                    (loco._ratedTractiveEffort
-                     - loco.Mass
-                     * ((loco.SpecificRunningResistance loco._ratedSpeed track._railType true) + track.AdditionalSpecificRunningResistance))
-                let down =
-                    (this.CarriagesAverageSRR loco._ratedSpeed track._railType + track.AdditionalSpecificRunningResistance)
-                let result = up / down
-                result
+                let sections = this._track._sections
+                let sectionsByGradient = sections
+                                         |> List.sortBy(fun x -> x.Gradient)
+                                         |> Seq.distinctBy(fun x -> x.Gradient)
+                                         |> List.ofSeq
+                
+                let sectionOne = sectionsByGradient.Item 1
+                let sectionNull = sectionsByGradient.Item 0
+
+                let trackSectionIndex = sections |> List.tryFindIndex(fun x -> x = trackSection)
+                let sectionNullIndex = sections |> List.findIndex(fun x -> x = sectionNull)
+
+                if not trackSectionIndex.IsNone && trackSectionIndex.Value <= sectionNullIndex
+                then
+
+                    let numerator = 
+                        (loco._ratedTractiveEffort
+                         - loco.Mass
+                         * ((loco.SpecificRunningResistance loco._ratedSpeed sectionOne._railType true) + sectionOne.AdditionalSpecificRunningResistance))
+                    let denominator =
+                        (this.CarriagesAverageSRR loco._ratedSpeed sectionOne._railType + sectionOne.AdditionalSpecificRunningResistance)
+                    let stockMassSectionOne = numerator / denominator
 
 
+                    let getSpeedRange (start : float<km/hour>) (stop : float<km/hour>) (step : float<km/hour>) : float<km/hour> list =
+                        let mutable s = start
+                        let mutable result : float<km/hour> list = []
+                        while s > stop - 1.0<km/hour> do
+                            s <- s - 1.0<km/hour>
+                            result <- result @ [s]
+                        result @ [stop;]
 
-            end
+
+                    let speedList = getSpeedRange 
+                    //for x in speed .. 
+
+
+                    //result
+                    0.0<t>
+
+                else 0.0<t>
+
+
+        end

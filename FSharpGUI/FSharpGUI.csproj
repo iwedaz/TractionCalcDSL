@@ -115,10 +115,6 @@
       <Project>{6DD14A85-CCFC-4774-BD26-0F5772512319}</Project>
       <Name>FastColoredTextBox</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FsiRunner\FsiRunner.fsproj">
-      <Project>{05de18bf-0495-41ed-b679-84af6f102cef}</Project>
-      <Name>FsiRunner</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TractionCalc\TractionCalc.fsproj">
       <Project>{414df3ac-49a8-4c25-bb80-e5eb49d9758d}</Project>
       <Name>TractionCalc</Name>
@@ -138,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\arrow_right_alt1_32x32.png" />
+    <Content Include="Resources\main.ico" />
     <Content Include="Resources\TabStrip.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -73,7 +73,7 @@
                 !m
 
 
-            member this.CarriagesAverageSRR (speed : float<km/hour>) (railType : RailType) : float<N/t> =
+            member private this.CarriagesAverageSRR (speed : float<km/hour>) (railType : RailType) : float<N/t> =
                 let mutable result = 0.0<N/t>
                 let carList = this._carriages |> Map.toList
                 for car in carList do
@@ -89,15 +89,15 @@
             /// </summary>
             member this.StockMass : float<t> =
                 let loco = this._locomotive
-                let track = this._trackSection
-                let up = 
+                let section = this._trackSection
+                let numerator = 
                     (loco._ratedTractiveEffort
                      - loco.Mass
-                     * ((loco.SpecificRunningResistance loco._ratedSpeed track._railType true) + track.AdditionalSpecificRunningResistance))
-                let down =
-                    (this.CarriagesAverageSRR loco._ratedSpeed track._railType + track.AdditionalSpecificRunningResistance)
-                let result = up / down
+                     * ((loco.SpecificRunningResistance loco._ratedSpeed section._railType true) + section.AdditionalSpecificRunningResistance))
+                let denominator =
+                    (this.CarriagesAverageSRR loco._ratedSpeed section._railType + section.AdditionalSpecificRunningResistance)
+                let result = numerator / denominator
                 result
 
 
-            end
+        end

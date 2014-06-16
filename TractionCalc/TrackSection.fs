@@ -19,10 +19,10 @@
             /// <summary>Уклон, промилле</summary>
             val _gradient : float
 
-            /// <summary>тип рельсового полотна</summary>
+            /// <summary>Тип рельсового полотна</summary>
             val _railType : RailType
 
-            /// <summary>ограничение скорости на участке</summary>
+            /// <summary>Ограничение скорости на участке</summary>
             val _speedLimit : float<km/hour>
 
             //кривая
@@ -76,33 +76,33 @@
                 }
 
             
-            /// <summary>Дополнительное удельное сопротивление движению от кривой, Н/т</summary>
+            /// <summary>Удельное сопротивление движению от кривой, Н/т</summary>
             member this.CurveAdditionalSpecificRunningResistance : float<N/t> =
                 if this._curveRadius > (0.0<m>)
                 then 7000.0<m*N/t> / this._curveRadius
                 else 0.0<N/t>
 
 
-            /// <summary>Дополнительное удельное сопротивление движению от уклона, Н/т</summary>
+            /// <summary>Удельное сопротивление движению от уклона, Н/т</summary>
             member this.GradientAdditionalSpecificRunningResistance : float<N/t> =
                 this._gradient * 10.0<N/t>
 
 
-            /// <summary>Суммарное дополнительное удельное сопротивление движению, Н/т</summary>
+            /// <summary>Полное удельное сопротивление движению от профиля пути, Н/т</summary>
             member this.AdditionalSpecificRunningResistance : float<N/t> =
                 let result = 
                     this.GradientAdditionalSpecificRunningResistance + this.CurveAdditionalSpecificRunningResistance
                 result
 
 
-            /// <summary>Фиктивный подъём для замены кривой, промилле</summary>
+            /// <summary>Фиктивный уклон для замены кривой, промилле</summary>
             member this.FictitiousCurveGradient : float =
                 if this._length > (0.0<m>) && this._curveRadius > (0.0<m>)
                 then 700.0<m> / this._length * this._curveLength / this._curveRadius
                 else 0.0
 
 
-            /// <summary>Суммарный подъём участка пути, промилле</summary>
+            /// <summary>Приведённый (полный) уклон участка пути, промилле</summary>
             member this.Gradient : float =
                 this._gradient + this.FictitiousCurveGradient
 

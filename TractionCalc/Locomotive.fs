@@ -5,6 +5,21 @@
 
     module Locomotive =
 
+        /// <summary>Кортеж (tuple), описывающий одну запись тяговой характеристики локомотива</summary>
+        type LocomotiveThrottlePositionRecordType = class
+            val _speed : float<km/hour>
+            val _engineMode : LocomotiveTractionEngineModeType 
+            val _tractiveEffort : float<N>
+
+            new (speed , throttlePosition , tractiveEffort) =
+                {
+                    _speed = speed
+                    _engineMode = throttlePosition
+                    _tractiveEffort = tractiveEffort
+                }
+        end
+
+
         /// <summary>Локомотив</summary>
         type Locomotive = class
 
@@ -25,7 +40,7 @@
 
             /// <summary>Расчётная сила тяги</summary>
             val _ratedTractiveEffort : float<N>
-            
+
             /// <summary>Количество секций</summary>
             val _sectionNumber : int
 
@@ -34,7 +49,16 @@
 
             /// <summary>Осевая нагрузка</summary>
             val _axelLoad : float<N>
-            
+
+            /// <summary>Тип тормозных колодок</summary>
+            val _brakeShoeType : BrakeShoeType
+
+            /// <summary>Количество тормозных осей</summary>
+            val _brakingAxels : int
+
+            /// <summary>Расчётное нажатие тормозных колодок на ось, Кр, Н/ось</summary>
+            val _ratedBrakingPressurePerAxel : float<N>
+
             /// <summary>Тяговая характеристика, [скорость , [позиция контроллера , сила тяги]]</summary>
             val mutable _tractionCharacteristic : LocomotiveThrottlePositionRecordType list
 
@@ -52,7 +76,8 @@
             /// <param name="axelNumber"></param>
             /// <param name="axelLoad"></param>
             new (name , locomotivePowerType , length , mass , ratedSpeed ,
-                 ratedTractiveEffort , sectionNumber , axelNumber , axelLoad) =
+                 ratedTractiveEffort , sectionNumber , axelNumber , axelLoad ,
+                 brakingAxels , brakeShoeType , ratedBrakingPressurePerAxel) =
                 {
                     _name = name
                     _locomotivePowerType = locomotivePowerType
@@ -63,18 +88,21 @@
                     _sectionNumber = sectionNumber
                     _axelNumber = axelNumber
                     _axelLoad = axelLoad
+                    _brakeShoeType = brakeShoeType
+                    _brakingAxels = brakingAxels
+                    _ratedBrakingPressurePerAxel = ratedBrakingPressurePerAxel
                     _tractionCharacteristic = []
                 }
 
 
             /// <summary>
-            /// Удельное сопротивление движению, w', Н/т
+            /// Основное удельное сопротивление движению, w', Н/т
             /// </summary>
             /// <param name="speed">Скорость, м/с</param>
             /// <param name="railType">Тип рельсовых путей</param>
             /// <param name="hasTraction">true - в режиме тяги, false - в режиме холостого хода</param>
             member this.SpecificRunningResistance (speed : float<km/hour>) (railType : RailType) (hasTraction : bool) : float<N/t> =
-                let result = 
+                let result =
                     match railType with
                         | RailType.SectionRail ->
                             if hasTraction
@@ -89,7 +117,7 @@
 
 
             /// <summary>
-            /// Сопротивление движению, W', Н
+            /// Основное сопротивление движению, W', Н
             /// </summary>
             /// <param name="speed">Скорость, м/с</param>
             /// <param name="railType">Тип рельсовых путей</param>
@@ -104,5 +132,26 @@
             member this.Mass : float<t> =
                 this._mass * (float)this._sectionNumber
 
-        end
 
+            member this.GetTractiveEffortBySpeed (speed : float<km/hour>) : float<N> =
+                if this._tractionCharacteristic.Length > 0
+                then
+                    let recordsBySpeed = this._tractionCharacteristic |> List.sortBy(fun x -> x._speed)
+                    let majorRecordIndex = recordsBySpeed |> List.tryFindIndex(fun x -> x._speed >= speed)
+
+                    if not majorRecordIndex.IsNone && majorRecordIndex.Value > 0
+                    then 
+                        let majorRecord = recordsBySpeed.Item majorRecordIndex.Value
+                        let minorRecord = recordsBySpeed.Item (majorRecordIndex.Value - 1)
+
+                        let majorEffort = majorRecord._tractiveEffort
+                        let minorEffort = minorRecord._tractiveEffort
+                        let majorSpeed = majorRecord._speed
+                        let minorSpeed = minorRecord._speed
+                        let result = minorEffort + abs(majorEffort - minorEffort) * abs(speed - minorSpeed) / abs(majorSpeed - minorSpeed)
+                        result
+
+                    else 0.0<N>
+                else 0.0<N>
+
+        end

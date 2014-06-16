@@ -42,10 +42,17 @@
 
         /// <summary>Тип тормозных колодок</summary>
         type BrakeShoeType =
-            /// <summary>Чугунная колодка</summary>
-            | CastIronBrakeShoe
+            /// <summary>Стандартная чугунная колодка</summary>
+            | CastIronFromPlainMaterialBrakeShoe
+            /// <summary>Чугунная колодка с повышенным содержание фосфора</summary>
+            | CastIronWithHighPhosphorusBrakeShoe
+            /// <summary>Чугунная колодка из высокофосфористого чугуна</summary>
+            | CastIronWith3PercentPhosphorusBrakeShoe
             /// <summary>Композитная колодка</summary>
-            | CompositeBrakeShoe
+            | Composite8166BrakeShoe
+            /// <summary>Композитная колодка</summary>
+            | Composite328303BrakeShoe
+
 
 
 
@@ -60,8 +67,8 @@
 
 
 
-        /// <summary>Позиция контроллера машиниста</summary>
-        type LocomotiveThrottlePositionType =
+        /// <summary>Режим работы тяговых двигателей локомотива</summary>
+        type LocomotiveTractionEngineModeType =
             /// <summary>Не задействована</summary>
             | None
             /// <summary>Последовательное возбуждение</summary>
@@ -75,18 +82,3 @@
             /// <summary>Режим ослабления магнитного поля 2</summary>
             | OP2
 
-
-        /// <summary>Кортеж (tuple), описывающий одну запись тяговой характеристики локомотива</summary>
-        type LocomotiveThrottlePositionRecordType = class
-            val _speed : float<km/hour>
-            val _throttlePosition : LocomotiveThrottlePositionType 
-            val _tractiveEffort : float<N>
-
-            new (speed , throttlePosition , tractiveEffort) =
-                {
-                    _speed = speed
-                    _throttlePosition = throttlePosition
-                    _tractiveEffort = tractiveEffort
-                }
-        end
-        

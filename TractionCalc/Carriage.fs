@@ -34,6 +34,9 @@
             /// <summary>Количество тормозных осей</summary>
             val _brakingAxels : int
 
+            /// <summary>Расчётное нажатие тормозных колодок на ось, Кр, Н/ось</summary>
+            val _ratedBrakingPressurePerAxel : float<N>
+
 
             interface IComparable<Carriage> with
                 member this.CompareTo(obj) =
@@ -75,7 +78,8 @@
             /// <param name="bearingType">Тип буксовых подшипников</param>
             /// <param name="brakingAxels">Число тормозных осей</param>
             /// <param name="brakeShoeType">Тип тормозных колодок</param>
-            new (name , carriageType , length , mass , axelNumber , bearingType , brakingAxels , brakeShoeType) =
+            new (name , carriageType , length , mass , axelNumber ,
+                 bearingType , brakingAxels , brakeShoeType , ratedBrakingPressurePerAxel) =
                 {
                     _name = name
                     _carriageType = carriageType
@@ -85,10 +89,10 @@
                     _bearingType = bearingType
                     _brakeShoeType = brakeShoeType
                     _brakingAxels = brakingAxels
+                    _ratedBrakingPressurePerAxel = ratedBrakingPressurePerAxel
                 }
 
 
-            // сопротивление троганию
             /// <summary>
             /// Удельное сопротивление троганию вагона, w"тр, Н/т
             /// </summary>
@@ -107,7 +111,7 @@
 
 
             /// <summary>
-            /// Удельное сопротивление движению, w", Н/т
+            /// Дополнительное удельное сопротивление движению, w", Н/т
             /// </summary>
             /// <param name="speed">Скорость, V, м/с</param>
             /// <param name="railType">Тип рельсовых путей</param>
@@ -185,7 +189,7 @@
 
 
             /// <summary>
-            /// Сопротивление движению, W", Н
+            /// Дополнительное сопротивление движению, W", Н
             /// </summary>
             /// <param name="speed">Скорость, м/с</param>
             /// <param name="railType">Тип рельсовых путей</param>

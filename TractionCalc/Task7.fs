@@ -12,10 +12,10 @@
     open System.Collections.Generic;
 
 
-    module Task5 =
+    module Task7 =
 
         /// <summary>Построение диаграммы удельных равнодествующих сил</summary>
-        type Task5 = class
+        type Task7 = class
             val _name : string
             val _train : Train
 

@@ -30,6 +30,22 @@
         {
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FSharpGUI));
+			System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Объекты", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Расчёты", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Поезд");
+			System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Состав");
+			System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Вагон");
+			System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Локомотив");
+			System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Путь");
+			System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Участок пути");
+			System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("1. Расчёт массы состава при его движение с расчётной скоростью");
+			System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("2. Расчёт массы состава с учётом использования кинетической энергии поезда");
+			System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("3. Проверка массы состава на трогание");
+			System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("4. Проверка массы состава по длине приёмо-отправочных путей");
+			System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem("5. Построение диаграммы удельных равнодействующих сил");
+			System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem("6. Решение прямой тормозной задачи");
+			System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem("7. Решение обратной тормозной задачи");
+			System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem("8. Расчёт времени хода поезда по железнодорожному участку");
 			this.msMain = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,6 +56,8 @@
 			this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
 			this.enableCodeMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.включитьDSLнаблоныToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ssMain = new System.Windows.Forms.StatusStrip();
 			this.lbWordUnderMouse = new System.Windows.Forms.ToolStripStatusLabel();
 			this.btZoom = new System.Windows.Forms.ToolStripSplitButton();
@@ -107,6 +125,8 @@
 			this.docMap = new FastColoredTextBoxNS.DocumentMap();
 			this.tsFiles = new FarsiLibrary.Win.FATabStrip();
 			this.splitter2 = new System.Windows.Forms.Splitter();
+			this.dslTemplateList = new System.Windows.Forms.ListView();
+			this.splitter3 = new System.Windows.Forms.Splitter();
 			this.msMain.SuspendLayout();
 			this.ssMain.SuspendLayout();
 			this.tsMain.SuspendLayout();
@@ -119,10 +139,11 @@
 			// 
 			this.msMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.toolStripMenuItem5});
+            this.toolStripMenuItem5,
+            this.справкаToolStripMenuItem});
 			this.msMain.Location = new System.Drawing.Point(0, 0);
 			this.msMain.Name = "msMain";
-			this.msMain.Size = new System.Drawing.Size(769, 24);
+			this.msMain.Size = new System.Drawing.Size(1061, 24);
 			this.msMain.TabIndex = 0;
 			this.msMain.Text = "menuStrip1";
 			// 
@@ -136,56 +157,57 @@
             this.toolStripMenuItem1,
             this.quitToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-			this.fileToolStripMenuItem.Text = "File";
+			this.fileToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+			this.fileToolStripMenuItem.Text = "Файл";
 			// 
 			// newToolStripMenuItem
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-			this.newToolStripMenuItem.Text = "New";
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.newToolStripMenuItem.Text = "Новый";
 			this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
 			// 
 			// openToolStripMenuItem
 			// 
 			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-			this.openToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-			this.openToolStripMenuItem.Text = "Open";
+			this.openToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.openToolStripMenuItem.Text = "Открыть";
 			this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
 			// 
 			// saveToolStripMenuItem
 			// 
 			this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-			this.saveToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-			this.saveToolStripMenuItem.Text = "Save";
+			this.saveToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.saveToolStripMenuItem.Text = "Сохранить";
 			this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
 			// 
 			// saveAsToolStripMenuItem
 			// 
 			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-			this.saveAsToolStripMenuItem.Text = "Save as ...";
+			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.saveAsToolStripMenuItem.Text = "Сохранить как...";
 			this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
 			// 
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(121, 6);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(159, 6);
 			// 
 			// quitToolStripMenuItem
 			// 
 			this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-			this.quitToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-			this.quitToolStripMenuItem.Text = "Quit";
+			this.quitToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.quitToolStripMenuItem.Text = "Выход";
 			this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
 			// 
 			// toolStripMenuItem5
 			// 
 			this.toolStripMenuItem5.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.enableCodeMapToolStripMenuItem});
+            this.enableCodeMapToolStripMenuItem,
+            this.включитьDSLнаблоныToolStripMenuItem});
 			this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-			this.toolStripMenuItem5.Size = new System.Drawing.Size(61, 20);
-			this.toolStripMenuItem5.Text = "Settings";
+			this.toolStripMenuItem5.Size = new System.Drawing.Size(79, 20);
+			this.toolStripMenuItem5.Text = "Настройки";
 			// 
 			// enableCodeMapToolStripMenuItem
 			// 
@@ -193,18 +215,32 @@
 			this.enableCodeMapToolStripMenuItem.CheckOnClick = true;
 			this.enableCodeMapToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.enableCodeMapToolStripMenuItem.Name = "enableCodeMapToolStripMenuItem";
-			this.enableCodeMapToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-			this.enableCodeMapToolStripMenuItem.Text = "Enable CodeMap";
+			this.enableCodeMapToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+			this.enableCodeMapToolStripMenuItem.Text = "Включить карту кода";
 			this.enableCodeMapToolStripMenuItem.Click += new System.EventHandler(this.enableCodeMapToolStripMenuItem_Click);
+			// 
+			// включитьDSLнаблоныToolStripMenuItem
+			// 
+			this.включитьDSLнаблоныToolStripMenuItem.Checked = true;
+			this.включитьDSLнаблоныToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.включитьDSLнаблоныToolStripMenuItem.Name = "включитьDSLнаблоныToolStripMenuItem";
+			this.включитьDSLнаблоныToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+			this.включитьDSLнаблоныToolStripMenuItem.Text = "Включить DSL-шаблоны";
+			// 
+			// справкаToolStripMenuItem
+			// 
+			this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
+			this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+			this.справкаToolStripMenuItem.Text = "Справка";
 			// 
 			// ssMain
 			// 
 			this.ssMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lbWordUnderMouse,
             this.btZoom});
-			this.ssMain.Location = new System.Drawing.Point(0, 307);
+			this.ssMain.Location = new System.Drawing.Point(0, 679);
 			this.ssMain.Name = "ssMain";
-			this.ssMain.Size = new System.Drawing.Size(769, 22);
+			this.ssMain.Size = new System.Drawing.Size(1061, 22);
 			this.ssMain.TabIndex = 2;
 			this.ssMain.Text = "statusStrip1";
 			// 
@@ -213,7 +249,7 @@
 			this.lbWordUnderMouse.AutoSize = false;
 			this.lbWordUnderMouse.ForeColor = System.Drawing.Color.Gray;
 			this.lbWordUnderMouse.Name = "lbWordUnderMouse";
-			this.lbWordUnderMouse.Size = new System.Drawing.Size(699, 17);
+			this.lbWordUnderMouse.Size = new System.Drawing.Size(918, 17);
 			this.lbWordUnderMouse.Spring = true;
 			this.lbWordUnderMouse.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -230,8 +266,8 @@
 			this.btZoom.Image = ((System.Drawing.Image)(resources.GetObject("btZoom.Image")));
 			this.btZoom.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btZoom.Name = "btZoom";
-			this.btZoom.Size = new System.Drawing.Size(55, 20);
-			this.btZoom.Text = "Zoom";
+			this.btZoom.Size = new System.Drawing.Size(128, 20);
+			this.btZoom.Text = "Масштабирование";
 			// 
 			// toolStripMenuItem11
 			// 
@@ -312,7 +348,7 @@
             this.toolStripSeparator8});
 			this.tsMain.Location = new System.Drawing.Point(0, 24);
 			this.tsMain.Name = "tsMain";
-			this.tsMain.Size = new System.Drawing.Size(769, 25);
+			this.tsMain.Size = new System.Drawing.Size(1061, 25);
 			this.tsMain.TabIndex = 3;
 			this.tsMain.Text = "toolStrip1";
 			// 
@@ -492,8 +528,8 @@
 			// 
 			this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.toolStripLabel1.Name = "toolStripLabel1";
-			this.toolStripLabel1.Size = new System.Drawing.Size(36, 22);
-			this.toolStripLabel1.Text = "Find: ";
+			this.toolStripLabel1.Size = new System.Drawing.Size(48, 22);
+			this.toolStripLabel1.Text = "Поиск: ";
 			// 
 			// toolStripSeparator6
 			// 
@@ -526,8 +562,8 @@
 			this.gotoButton.Image = ((System.Drawing.Image)(resources.GetObject("gotoButton.Image")));
 			this.gotoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.gotoButton.Name = "gotoButton";
-			this.gotoButton.Size = new System.Drawing.Size(55, 22);
-			this.gotoButton.Text = "Goto...";
+			this.gotoButton.Size = new System.Drawing.Size(76, 22);
+			this.gotoButton.Text = "Перейти...";
 			this.gotoButton.DropDownOpening += new System.EventHandler(this.gotoButton_DropDownOpening);
 			// 
 			// toolStripSeparator7
@@ -537,12 +573,11 @@
 			// 
 			// runScriptButton
 			// 
-			this.runScriptButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.runScriptButton.Image = global::FSharpGUI.Properties.Resources.arrow_right_alt1_32x32;
 			this.runScriptButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.runScriptButton.Name = "runScriptButton";
-			this.runScriptButton.Size = new System.Drawing.Size(23, 22);
-			this.runScriptButton.Text = "Запустить скрипт";
+			this.runScriptButton.Size = new System.Drawing.Size(138, 22);
+			this.runScriptButton.Text = "Запустить сценарий";
 			this.runScriptButton.Click += new System.EventHandler(this.runScriptButton_Click);
 			// 
 			// toolStripSeparator8
@@ -569,14 +604,14 @@
 			// 
 			this.splitter1.Location = new System.Drawing.Point(172, 49);
 			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(3, 258);
+			this.splitter1.Size = new System.Drawing.Size(3, 630);
 			this.splitter1.TabIndex = 5;
 			this.splitter1.TabStop = false;
 			// 
 			// sfdMain
 			// 
 			this.sfdMain.DefaultExt = "cs";
-			this.sfdMain.Filter = "F# scripts(*.fs, *.fsx)|*.fs;*.fsx|All files(*.*)|*.*";
+			this.sfdMain.Filter = "F# scripts(*.fsx)|*.fsx|All files(*.*)|*.*";
 			// 
 			// ofdMain
 			// 
@@ -640,7 +675,6 @@
 			// 
 			// undoToolStripMenuItem
 			// 
-			this.undoToolStripMenuItem.Image = global::FSharpGUI.Properties.Resources.undo_16x16;
 			this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
 			this.undoToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
 			this.undoToolStripMenuItem.Text = "Undo";
@@ -648,7 +682,6 @@
 			// 
 			// redoToolStripMenuItem
 			// 
-			this.redoToolStripMenuItem.Image = global::FSharpGUI.Properties.Resources.redo_16x16;
 			this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
 			this.redoToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
 			this.redoToolStripMenuItem.Text = "Redo";
@@ -745,7 +778,7 @@
 			this.dgvObjectExplorer.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Green;
 			this.dgvObjectExplorer.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.dgvObjectExplorer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgvObjectExplorer.Size = new System.Drawing.Size(172, 258);
+			this.dgvObjectExplorer.Size = new System.Drawing.Size(172, 630);
 			this.dgvObjectExplorer.TabIndex = 6;
 			this.dgvObjectExplorer.VirtualMode = true;
 			this.dgvObjectExplorer.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvObjectExplorer_CellMouseDoubleClick);
@@ -778,10 +811,10 @@
 			// 
 			this.docMap.Dock = System.Windows.Forms.DockStyle.Right;
 			this.docMap.ForeColor = System.Drawing.Color.LightSkyBlue;
-			this.docMap.Location = new System.Drawing.Point(669, 49);
+			this.docMap.Location = new System.Drawing.Point(961, 49);
 			this.docMap.MinimumSize = new System.Drawing.Size(100, 0);
 			this.docMap.Name = "docMap";
-			this.docMap.Size = new System.Drawing.Size(100, 258);
+			this.docMap.Size = new System.Drawing.Size(100, 630);
 			this.docMap.TabIndex = 10;
 			this.docMap.Target = null;
 			this.docMap.Text = "documentMap1";
@@ -792,7 +825,7 @@
 			this.tsFiles.Font = new System.Drawing.Font("Tahoma", 8.25F);
 			this.tsFiles.Location = new System.Drawing.Point(175, 49);
 			this.tsFiles.Name = "tsFiles";
-			this.tsFiles.Size = new System.Drawing.Size(491, 258);
+			this.tsFiles.Size = new System.Drawing.Size(783, 449);
 			this.tsFiles.TabIndex = 11;
 			this.tsFiles.Text = "faTabStrip1";
 			this.tsFiles.TabStripItemClosing += new FarsiLibrary.Win.TabStripItemClosingHandler(this.tsFiles_TabStripItemClosing);
@@ -801,18 +834,79 @@
 			// splitter2
 			// 
 			this.splitter2.Dock = System.Windows.Forms.DockStyle.Right;
-			this.splitter2.Location = new System.Drawing.Point(666, 49);
+			this.splitter2.Location = new System.Drawing.Point(958, 49);
 			this.splitter2.Name = "splitter2";
-			this.splitter2.Size = new System.Drawing.Size(3, 258);
+			this.splitter2.Size = new System.Drawing.Size(3, 630);
 			this.splitter2.TabIndex = 12;
 			this.splitter2.TabStop = false;
+			// 
+			// dslTemplateList
+			// 
+			this.dslTemplateList.Dock = System.Windows.Forms.DockStyle.Bottom;
+			listViewGroup1.Header = "Объекты";
+			listViewGroup1.Name = "listViewGroup1";
+			listViewGroup2.Header = "Расчёты";
+			listViewGroup2.Name = "listViewGroup2";
+			this.dslTemplateList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
+            listViewGroup1,
+            listViewGroup2});
+			this.dslTemplateList.HideSelection = false;
+			listViewItem1.Group = listViewGroup1;
+			listViewItem2.Group = listViewGroup1;
+			listViewItem3.Group = listViewGroup1;
+			listViewItem4.Group = listViewGroup1;
+			listViewItem5.Group = listViewGroup1;
+			listViewItem6.Group = listViewGroup1;
+			listViewItem7.Group = listViewGroup2;
+			listViewItem8.Group = listViewGroup2;
+			listViewItem9.Group = listViewGroup2;
+			listViewItem10.Group = listViewGroup2;
+			listViewItem11.Group = listViewGroup2;
+			listViewItem12.Group = listViewGroup2;
+			listViewItem13.Group = listViewGroup2;
+			listViewItem14.Group = listViewGroup2;
+			this.dslTemplateList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4,
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8,
+            listViewItem9,
+            listViewItem10,
+            listViewItem11,
+            listViewItem12,
+            listViewItem13,
+            listViewItem14});
+			this.dslTemplateList.Location = new System.Drawing.Point(175, 501);
+			this.dslTemplateList.MultiSelect = false;
+			this.dslTemplateList.Name = "dslTemplateList";
+			this.dslTemplateList.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.dslTemplateList.Size = new System.Drawing.Size(783, 178);
+			this.dslTemplateList.TabIndex = 0;
+			this.dslTemplateList.UseCompatibleStateImageBehavior = false;
+			this.dslTemplateList.View = System.Windows.Forms.View.Tile;
+			this.dslTemplateList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dslTemplateList_MouseDoubleClick);
+			// 
+			// splitter3
+			// 
+			this.splitter3.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.splitter3.Location = new System.Drawing.Point(175, 498);
+			this.splitter3.Name = "splitter3";
+			this.splitter3.Size = new System.Drawing.Size(783, 3);
+			this.splitter3.TabIndex = 0;
+			this.splitter3.TabStop = false;
 			// 
 			// FSharpGUI
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(769, 329);
+			this.ClientSize = new System.Drawing.Size(1061, 701);
 			this.Controls.Add(this.tsFiles);
+			this.Controls.Add(this.splitter3);
+			this.Controls.Add(this.dslTemplateList);
 			this.Controls.Add(this.splitter2);
 			this.Controls.Add(this.docMap);
 			this.Controls.Add(this.splitter1);
@@ -820,11 +914,11 @@
 			this.Controls.Add(this.tsMain);
 			this.Controls.Add(this.msMain);
 			this.Controls.Add(this.ssMain);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.KeyPreview = true;
 			this.MainMenuStrip = this.msMain;
 			this.Name = "FSharpGUI";
-			this.Text = "FSharpEditor";
-			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+			this.Text = "DSL Editor";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PowerfulCSharpEditor_FormClosing);
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PowerfulCSharpEditor_KeyDown);
 			this.msMain.ResumeLayout(false);
@@ -920,5 +1014,9 @@
 		private FastColoredTextBoxNS.DocumentMap docMap;
 		private FarsiLibrary.Win.FATabStrip tsFiles;
 		private System.Windows.Forms.Splitter splitter2;
+		private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem включитьDSLнаблоныToolStripMenuItem;
+		private System.Windows.Forms.ListView dslTemplateList;
+		private System.Windows.Forms.Splitter splitter3;
 	}
 }
